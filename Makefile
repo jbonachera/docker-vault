@@ -1,2 +1,2 @@
 build:
-	docker build -t docker.io/jbonachera/vault . 
+	docker build -t jbonachera/vault .

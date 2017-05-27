@@ -1,14 +1,16 @@
-FROM fedora
+FROM jbonachera/alpine
 MAINTAINER Julien BONACHERA <julien@bonachera.fr>
 
 EXPOSE 8200
-CMD /usr/local/sbin/vault server -config /etc/vault/config -log-level trace
-RUN mkdir /etc/vault
-ONBUILD ADD config /etc/vault/config
-RUN useradd  -r vault
+ENTRYPOINT ["/sbin/entrypoint"]
+RUN mkdir /etc/vault /etc/templates
+RUN adduser  -S vault
 RUN chown vault: -R /etc/vault/
-ENV VERSION=0.5.0
-RUN curl -sLo /opt/vault.zip https://releases.hashicorp.com/vault/${VERSION}/vault_${VERSION}_linux_amd64.zip  && \
-    python3 -m zipfile -e /opt/vault.zip /usr/local/sbin && rm -f /opt/vault.zip
+RUN apk -U add curl bind-tools unzip
+ENV VERSION=0.7.2
+RUN curl -sLo /var/tmp/vault.zip https://releases.hashicorp.com/vault/${VERSION}/vault_${VERSION}_linux_amd64.zip  && \
+    unzip /var/tmp/vault.zip -d /usr/local/sbin && rm -f /opt/vault.zip
 RUN chmod +x /usr/local/sbin/vault
+COPY vault.conf.j2 /etc/templates
+COPY entrypoint /sbin/entrypoint
 USER vault

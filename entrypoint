@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export SELF_IP="0.0.0.0"
+export CONSUL_ADDR="${CONSUL_ADDR:-127.0.0.1}"
+
+render.py /etc/templates/vault.conf.j2 > /etc/vault/vaut.conf
+
+echo "config:"
+cat /etc/vault/vaut.conf | while read line; do echo -e "\t$line"; done
+exec /usr/local/sbin/vault server -config /etc/vault/vaut.conf
