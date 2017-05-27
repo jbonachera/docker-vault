@@ -1,10 +1,10 @@
 storage "consul" {
-address = "{{ CONSUL_ADDR }}:8500"
+  address = "{{ CONSUL_ADDR }}:8500"
   path    = "vault"
 }
 
 listener "tcp" {
-address     = "{{ SELF_IP }}:8200"
+  address     = "{{ SELF_IP }}:8200"
   tls_disable = 1
 }
 
