@@ -7,3 +7,4 @@ listener "tcp" {
   address     = "{{ SELF_IP }}:8200"
   tls_disable = 1
 }
+disable_mlock={{ DISABLE_MLOCK | default("false") }}

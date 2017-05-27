@@ -2,6 +2,7 @@
 
 export SELF_IP="0.0.0.0"
 export CONSUL_ADDR="${CONSUL_ADDR:-127.0.0.1}"
+export DISABLE_MLOCK="${DISABLE_MLOCK:-false}"
 
 render.py /etc/templates/vault.conf.j2 > /etc/vault/vaut.conf
 
