@@ -1,10 +1,13 @@
 storage "consul" {
   address = "{{ CONSUL_ADDR }}:8500"
   path    = "vault"
+  cluster_addr  = "http://{{ SELF_IP }}:8201"
+  redirect_addr = "http://{{ SELF_IP }}:8200"
+  advertise_addr = "http://{{ SELF_IP }}:8200"
 }
 
 listener "tcp" {
-  address     = "{{ SELF_IP }}:8200"
+  address     = "{{ LISTEN_IP }}:8200"
   tls_disable = 1
 }
 disable_mlock={{ DISABLE_MLOCK | default("false") }}
