@@ -1,9 +1,21 @@
 #!/bin/bash
 
 export LISTEN_IP="0.0.0.0"
-export SELF_IP=$(dig +short $(hostname))
+export SELF_IP="127.0.0.1"
 export CONSUL_ADDR="${CONSUL_ADDR:-127.0.0.1}"
 export DISABLE_MLOCK="${DISABLE_MLOCK:-false}"
+
+if [[ -n "${SERVICE_NAME}" ]]; then
+  MIN_NODES_SIZE="${MIN_NODES_SIZE:-3}"
+  echo "swarm mode enabled: peers are behind $(dig +short $SERVICE_NAME) ip"
+  while [[ $number_of_nodes -lt ${MIN_NODES_SIZE} ]]; do
+    sleep 1
+    SELF_IP=$(dig +short $(hostname))
+    NODES=$(dig +short tasks.${SERVICE_NAME})
+    number_of_nodes=$(( $(echo $NODES | grep -o '\s' | wc -l) + 1 )) >/dev/null
+    echo "we found $number_of_nodes nodes"
+  done
+fi
 
 render.py /etc/templates/vault.conf.j2 > /etc/vault/vaut.conf
 
