@@ -1,5 +1,5 @@
 storage "consul" {
-  address = "{{ CONSUL_ADDR }}:8500"
+  address = "{{ CONSUL_ADDR }}"
   path    = "vault"
   cluster_addr  = "http://{{ SELF_IP }}:8201"
   redirect_addr = "http://{{ SELF_IP }}:8200"
