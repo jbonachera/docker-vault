@@ -4,6 +4,7 @@ export LISTEN_IP="0.0.0.0"
 export SELF_IP=$(dig +short $(hostname))
 export CONSUL_ADDR="${CONSUL_ADDR:-127.0.0.1:8500}"
 export DISABLE_MLOCK="${DISABLE_MLOCK:-false}"
+export DISABLE_CONSUL_REGISTRATION="${DISABLE_CONSUL_REGISTRATION:-0}"
 
 if [[ -n "${SERVICE_NAME}" ]]; then
   MIN_NODES_SIZE="${MIN_NODES_SIZE:-3}"

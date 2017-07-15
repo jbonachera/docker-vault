@@ -4,6 +4,7 @@ storage "consul" {
   cluster_addr  = "http://{{ SELF_IP }}:8201"
   redirect_addr = "http://{{ SELF_IP }}:8200"
   advertise_addr = "http://{{ SELF_IP }}:8200"
+  disable_registration = {{ DISABLE_CONSUL_REGISTRATION }}
 }
 
 listener "tcp" {
