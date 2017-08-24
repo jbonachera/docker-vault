@@ -7,7 +7,7 @@ RUN mkdir /etc/vault /etc/templates
 RUN adduser  -S vault
 RUN chown vault: -R /etc/vault/
 RUN apk -U add curl bind-tools unzip
-ENV VERSION=0.7.3
+ENV VERSION=0.8.1
 RUN curl -sLo /var/tmp/vault.zip https://releases.hashicorp.com/vault/${VERSION}/vault_${VERSION}_linux_amd64.zip  && \
     unzip /var/tmp/vault.zip -d /usr/local/sbin && rm -f /opt/vault.zip
 RUN chmod +x /usr/local/sbin/vault
