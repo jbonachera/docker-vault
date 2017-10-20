@@ -1,7 +1,12 @@
 #!/bin/bash
 
 export LISTEN_IP="0.0.0.0"
-export SELF_IP=$(dig +short $(hostname))
+SELF_IP=$(dig +short $(hostname))
+while [ "$SELF_IP" == "" ]; do
+  sleep 1
+  SELF_IP=$(dig +short $(hostname))
+done
+export SELF_IP
 export CONSUL_ADDR="${CONSUL_ADDR:-127.0.0.1:8500}"
 export DISABLE_MLOCK="${DISABLE_MLOCK:-false}"
 export DISABLE_CONSUL_REGISTRATION="${DISABLE_CONSUL_REGISTRATION:-0}"
