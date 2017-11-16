@@ -2,6 +2,7 @@ FROM jbonachera/alpine
 MAINTAINER Julien BONACHERA <julien@bonachera.fr>
 
 EXPOSE 8200
+ENV VAULT_ADDR=http://127.0.0.1:8200
 ENTRYPOINT ["/sbin/entrypoint"]
 RUN mkdir /etc/vault /etc/templates
 RUN adduser  -S vault
